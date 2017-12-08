@@ -7,6 +7,8 @@ var PanAndZoom = require("./PanAndZoom");
 var SelectTool = require("./tools/selectTool");
 var SimpleQueue = require("../utils/SimpleQueue");
 var PositionTool = require("./tools/positionTool");
+var MultiLayerPositionTool = require("./tools/multiLayerPositionTool");
+
 
 class ViewManager {
     constructor(view) {
@@ -405,6 +407,7 @@ class ViewManager {
         this.tools["CurvedMixer"] = new PositionTool("CurvedMixer", "Basic");
         this.tools["Mixer"] = new PositionTool("Mixer", "Basic");
         this.tools["Tree"] = new PositionTool("Tree", "Basic");
+        this.tools["Mux"] = new MultiLayerPositionTool("Mux", "Basic");
         this.tools["CellTrapL"] = new PositionTool("CellTrapL", "Basic");
         this.tools["DropletGen"] = new PositionTool("DropletGen", "Basic");
         this.tools["Transition"] = new PositionTool("Transition", "Basic");

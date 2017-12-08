@@ -283,6 +283,33 @@ let render2D = {
         targetPrimitiveType: "TreeTarget",
         targetPrimitiveSet: "Basic2D"
     },
+    Mux: {
+        featureParams: {
+            position: "position",
+            flowChannelWidth: "flowChannelWidth",
+            orientation: "orientation",
+            spacing: "spacing",
+            width: "width",
+            length: "length",
+            leafs: "leafs",
+            stagelength: "stagelength",
+            direction : "direction"
+        },
+        targetParams: {
+            flowChannelWidth: "flowChannelWidth",
+            orientation: "orientation",
+            spacing: "spacing",
+            width: "width",
+            length: "length",
+            leafs: "leafs",
+            stagelength: "stagelength",
+            direction:"direction"
+        },
+        featurePrimitiveType: "Mux",
+        featurePrimitiveSet: "Basic2D",
+        targetPrimitiveType: "MuxTarget",
+        targetPrimitiveSet: "Basic2D"
+    },
     CellTrapL: {
         featureParams: {
             position: "position",

@@ -1199,7 +1199,197 @@ var TreeTarget = function(params) {
     spacing = params["spacing"];
     leafs = params["leafs"];
     color = params["color"];
+    stagelength = params["stageLength"];
+    px = position[0];
+    py = position[1];
+
+    let levels = Math.ceil(Math.log2(leafs));
+    let isodd = false ; //This is used to figure out how many lines have to be made
+    if(leafs%2 == 0){
+        isodd = false;
+    }else{
+        isodd = true;
+    }
+    let w = spacing * (leafs/2 + 1);
+    let l = (levels + 1) * stagelength;
+
+    console.log("CW: " + cw +  " levels: "+ levels +  " width: " + w + " length: " + l)
+
+    var treepath = new paper.CompoundPath();
+
+    generateTwig(treepath, px, py, cw, stagelength, w, 1, levels);
+
+
+
+    //Draw the tree
+
+    treepath.fillColor = color;
+    treepath.fillColor.alpha = 0.5;
+    var rotation = 0;
+    console.log("Orientation: " + orientation);
+    console.log("Direction: " + direction);
+    if(orientation == "H" && direction=="OUT"){
+        rotation = 180;
+    }else if(orientation == "V" && direction =="IN"){
+        rotation = 270;
+    }else if(orientation == "V" && direction == "OUT"){
+        rotation = 90;
+    }
+    return treepath.rotate(rotation,px,py);
+
+};
+
+
+var Mux = function(params) {
+    position  = params["position"];
+    cw = params["flowChannelWidth"];
+    orientation = params["orientation"];
+    direction = params["direction"];
+    spacing = params["spacing"];
+    leafs = params["leafs"];
+    color = params["color"];
     stagelength = params["stagelength"];
+    px = position[0];
+    py = position[1];
+
+    let levels = Math.ceil(Math.log2(leafs));
+    let isodd = false ; //This is used to figure out how many lines have to be made
+    if(leafs%2 == 0){
+        isodd = false;
+    }else{
+        isodd = true;
+    }
+    let w = spacing * (leafs/2 + 1);
+    let l = (levels + 1) * stagelength;
+
+    console.log("CW: " + cw +  " levels: "+ levels +  " width: " + w + " length: " + l)
+
+    var treepath = new paper.CompoundPath();
+
+    generateTwig(treepath, px, py, cw, stagelength, w, 1, levels);
+
+
+
+    //Draw the tree
+
+    treepath.fillColor = color;
+    var rotation = 0;
+    console.log("Orientation: " + orientation);
+    console.log("Direction: " + direction);
+    if(orientation == "H" && direction=="OUT"){
+        rotation = 180;
+    }else if(orientation == "V" && direction =="IN"){
+        rotation = 270;
+    }else if(orientation == "V" && direction == "OUT"){
+        rotation = 90;
+    }
+    return treepath.rotate(rotation,px,py);
+}
+
+function drawMuxtwig(treepath, px, py, cw, stagelength, spacing, drawleafs=false) {
+    //stem
+    let startPoint = new paper.Point(px - cw / 2, py);
+    let endPoint = new paper.Point(px + cw / 2, py + stagelength);
+    let rec = paper.Path.Rectangle({
+        from: startPoint,
+        to: endPoint,
+        radius: 0,
+        fillColor: color,
+        strokeWidth: 0
+    });
+
+    treepath.addChild(rec);
+
+    //Draw 2 leafs
+    //left leaf
+    lstartx = px - 0.5 * (cw + spacing);
+    lendx = lstartx + cw;
+    lstarty = py + stagelength + cw;
+    lendy = lstarty + stagelength;
+
+    // //right leaf
+    rstartx = px + 0.5 * (spacing - cw);
+    rendx = rstartx + cw;
+    rstarty = py + stagelength + cw;
+    rendy = rstarty + stagelength;
+
+    if(drawleafs){
+        startPoint = new paper.Point(lstartx, lstarty);
+        endPoint = new paper.Point(lendx, lendy);
+        rec = paper.Path.Rectangle({
+            from: startPoint,
+            to: endPoint,
+            radius: 0,
+            fillColor: color,
+            strokeWidth: 0
+        });
+        treepath.addChild(rec);
+
+        startPoint = new paper.Point(rstartx, rstarty);
+        endPoint = new paper.Point(rendx, rendy);
+        rec = paper.Path.Rectangle({
+            from: startPoint,
+            to: endPoint,
+            radius: 0,
+            fillColor: color,
+            strokeWidth: 0
+        });
+        treepath.addChild(rec);
+
+    }
+
+
+    //Horizontal bar
+    hstartx = px - 0.5 * (cw + spacing);
+    hendx = rendx;
+    hstarty = py + stagelength;
+    hendy = hstarty + cw;
+    startPoint = new paper.Point(hstartx, hstarty);
+    endPoint = new paper.Point(hendx, hendy);
+    rec = paper.Path.Rectangle({
+        from: startPoint,
+        to: endPoint,
+        radius: 0,
+        fillColor: color,
+        strokeWidth: 0
+    });
+    treepath.addChild(rec);
+    return treepath
+}
+
+function generateMuxTwig(treepath, px, py,cw, stagelength , newspacing, level, maxlevel, islast=false) {
+    //var newspacing = 2 * (spacing + cw);
+    var hspacing = newspacing/2;
+    var lex = px - 0.5 * newspacing;
+    var ley = py + cw + stagelength;
+    var rex = px + 0.5 * newspacing;
+    var rey = py + cw + stagelength;
+
+    if(level == maxlevel){
+        islast = true;
+        console.log("Final Spacing: " + newspacing)
+    }
+
+    drawtwig(treepath, px, py, cw, stagelength, newspacing, islast);
+    // drawtwig(treepath, lex, ley, cw, stagelength, hspacing, islast);
+    // drawtwig(treepath, rex, rey, cw, stagelength, hspacing, islast);
+
+
+    if(!islast){
+        generateTwig(treepath, lex, ley, cw, stagelength, hspacing, level+1, maxlevel);
+        generateTwig(treepath, rex, rey, cw, stagelength, hspacing, level+1, maxlevel);
+    }
+}
+
+var MuxTarget = function(params) {
+    position  = params["position"];
+    cw = params["flowChannelWidth"];
+    orientation = params["orientation"];
+    direction = params["direction"];
+    spacing = params["spacing"];
+    leafs = params["leafs"];
+    color = params["color"];
+    stagelength = params["stageLength"];
     px = position[0];
     py = position[1];
 
@@ -1453,6 +1643,8 @@ module.exports.MixerTarget = MixerTarget;
 module.exports.EdgedRect = EdgedRect;
 module.exports.Tree = Tree;
 module.exports.TreeTarget = TreeTarget;
+module.exports.Mux = Mux;
+module.exports.MuxTarget = MuxTarget;
 module.exports.CellTrapL = CellTrapL;
 module.exports.CellTrapLTarget = CellTrapLTarget;
 module.exports.DropletGen = DropletGen;
