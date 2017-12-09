@@ -414,7 +414,7 @@ let basicFeatures = {
             "length": "Float",
             "height": "Float",
             "direction": "String",
-            "stagelength":"Float"
+            "stageLength":"Float"
         },
         defaults: {
             "flowChannelWidth": .80 * 1000,
@@ -459,7 +459,7 @@ let basicFeatures = {
             "length": "Float",
             "height": "Float",
             "direction": "String",
-            "stagelength":"Float"
+            "stageLength":"Float"
         },
         defaults: {
             "flowChannelWidth": .80 * 1000,

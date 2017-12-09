@@ -265,7 +265,7 @@ let render2D = {
             width: "width",
             length: "length",
             leafs: "leafs",
-            stagelength: "stagelength",
+            stageLength: "stageLength",
             direction : "direction"
         },
         targetParams: {
@@ -275,7 +275,7 @@ let render2D = {
             width: "width",
             length: "length",
             leafs: "leafs",
-            stagelength: "stagelength",
+            stageLength: "stageLength",
             direction:"direction"
         },
         featurePrimitiveType: "Tree",
@@ -292,7 +292,7 @@ let render2D = {
             width: "width",
             length: "length",
             leafs: "leafs",
-            stagelength: "stagelength",
+            stageLength: "stageLength",
             direction : "direction"
         },
         targetParams: {
@@ -302,7 +302,7 @@ let render2D = {
             width: "width",
             length: "length",
             leafs: "leafs",
-            stagelength: "stagelength",
+            stageLength: "stageLength",
             direction:"direction"
         },
         featurePrimitiveType: "Mux",
