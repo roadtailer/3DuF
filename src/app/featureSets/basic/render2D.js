@@ -408,6 +408,7 @@ let render2D = {
         featureParams: {
             position: "position",
             flowChannelWidth: "flowChannelWidth",
+            controlchannelWidth: "controlChannelWidth",
             orientation: "orientation",
             spacing: "spacing",
             width: "width",
@@ -435,6 +436,7 @@ let render2D = {
         featureParams: {
             position: "position",
             flowChannelWidth: "flowChannelWidth",
+            controlChannelWidth: "controlChannelWidth",
             orientation: "orientation",
             spacing: "spacing",
             width: "width",
