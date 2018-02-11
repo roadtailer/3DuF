@@ -38179,12 +38179,13 @@ var CellTrapL_cell = function (params) {
         */
     }
     chamberList.fillColor = color;
-    traps = new paper.CompoundPath(chamberList);
-    traps.fillColor = color;
+    //traps = new paper.CompoundPath(chamberList);
+    //traps.fillColor = color;
     center = new paper.Point(x, y);
-    test_circ = new paper.Path.Circle(center, 2000);
-    console.log(chamberList);
-    return test_circ;
+    //test_circ = new paper.Path.Circle(center, 2000);
+    //test_circ.fillColor = color;
+    //console.log(chamberList);
+    return chamberList;
 };
 
 var CellTrapLTarget = function (params) {
